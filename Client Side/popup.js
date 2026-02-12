@@ -8,12 +8,14 @@ const addChannelBtn = document.getElementById('addChannelBtn');
 const whitelistContainer = document.getElementById('whitelistContainer');
 const whitelistCount = document.getElementById('whitelistCount');
 const emptyHint = document.getElementById('emptyHint');
+const themeToggle = document.getElementById('themeToggle');
 
 // ── Initialize ──
 document.addEventListener('DOMContentLoaded', () => {
   loadState();
   loadStats();
   loadWhitelist();
+  loadTheme();
 });
 
 // ── Toggle Logic ──
@@ -164,3 +166,34 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+// ── Theme Toggle ──
+function loadTheme() {
+  chrome.storage.local.get(['theme'], (data) => {
+    const theme = data.theme || 'dark';
+    applyTheme(theme);
+  });
+}
+
+function applyTheme(theme) {
+  if (theme === 'light') {
+    document.body.classList.add('light');
+  } else {
+    document.body.classList.remove('light');
+  }
+}
+
+themeToggle.addEventListener('click', () => {
+  const isCurrentlyLight = document.body.classList.contains('light');
+  const newTheme = isCurrentlyLight ? 'dark' : 'light';
+
+  applyTheme(newTheme);
+  chrome.storage.local.set({ theme: newTheme });
+
+  // Sync theme to all YouTube tabs (for overlay styling)
+  chrome.tabs.query({ url: 'https://www.youtube.com/*' }, (tabs) => {
+    tabs.forEach((tab) => {
+      chrome.tabs.sendMessage(tab.id, { action: 'themeChanged', theme: newTheme }).catch(() => {});
+    });
+  });
+});

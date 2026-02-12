@@ -1,3 +1,3 @@
-- Code Client Side Broswer Extension
-- Test
 - Launch
+- Reduce delays
+- Add Login, and Paid Plans

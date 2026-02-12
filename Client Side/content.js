@@ -3,6 +3,12 @@ let currentVideoId = null;
 let isProcessing = false;
 let overlayElement = null;
 let loadingElement = null;
+let currentTheme = 'dark';
+
+// ── Load saved theme ──
+chrome.storage.local.get(['theme'], (data) => {
+  currentTheme = data.theme || 'dark';
+});
 
 // ── YouTube Video Page Detection ──
 // ONLY triggers on /watch pages, ignores home, shorts, subs, etc.
@@ -144,6 +150,7 @@ function showLoading() {
 
   loadingElement = document.createElement('div');
   loadingElement.id = 'antirot-loading';
+  loadingElement.dataset.theme = currentTheme;
   loadingElement.innerHTML = `
     <div class="antirot-loading-inner">
       <div class="antirot-spinner"></div>
@@ -166,6 +173,7 @@ function showBlockOverlay() {
 
   overlayElement = document.createElement('div');
   overlayElement.id = 'antirot-overlay';
+  overlayElement.dataset.theme = currentTheme;
   overlayElement.innerHTML = `
     <div class="antirot-overlay-content">
       <div class="antirot-icon-wrap">
@@ -256,17 +264,22 @@ urlObserver.observe(document.body, { childList: true, subtree: true });
 // Method 4: Initial page load
 processVideo();
 
-// ── Listen for toggle changes from popup ──
+// ── Listen for toggle and theme changes from popup ──
 chrome.runtime.onMessage.addListener((message) => {
   if (message.action === 'toggleChanged') {
     if (!message.enabled) {
-      // Extension disabled: clean up any overlays
       cleanup();
       currentVideoId = null;
     } else {
-      // Extension re-enabled: process current page
       currentVideoId = null;
       processVideo();
     }
+  }
+
+  if (message.action === 'themeChanged') {
+    currentTheme = message.theme;
+    // Update live elements
+    if (overlayElement) overlayElement.dataset.theme = currentTheme;
+    if (loadingElement) loadingElement.dataset.theme = currentTheme;
   }
 });

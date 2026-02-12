@@ -22,21 +22,33 @@ Chrome extension + Python backend that automatically blocks non valuable YouTube
 ## Project Structure
 
 ```
-yt-focus/
-├── extension/             #Deployed Client Side
-│   ├── manifest.json
-│   ├── content.js
-│   └── background.js
-├── server/                # Deployed on Google Cloud
-|   ├── Server.py          # Logic Optimized for Docker & GCP
-│   ├── requirements.txt   # Python deps
-│   ├── Dockerfile         # To contain the server and push to GCP (gitignored)
-│   └── .env               # API key & System Prompt (gitignored)
-├── Testing
-│   ├── Logic.py           # basic logic i wrote while protyping
-│   ├── testclient.py.     # For testing APIs, and troubleshooting (gitignored)
-│   └── .env               # API key & System Prompt (gitignored)
-|   README.md
+Anti_Rot/
+├── Client Side/            # Chrome Extension (runs on user’s browser)
+│   ├── icons/              # Extension icons used by Chrome UI
+│   │   ├── icon16.png
+│   │   ├── icon48.png
+│   │   └── icon128.png
+│   ├── manifest.json       # Core config file that defines permissions, scripts, and extension metadata
+│   ├── background.js       # Background service worker; handles events, messaging, and persistent logic
+│   ├── content.js          # Injected into YouTube pages; extracts URL/transcript + manipulates DOM
+│   ├── content.css         # Styles applied directly to the YouTube page by content.js
+│   ├── popup.html          # UI layout for extension popup
+│   ├── popup.css           # Styling for popup interface
+│   └── popup.js            # Logic for popup interactions and user actions
+│
+├── Server/                 # Backend API (Dockerized for cloud deployment)
+│   ├── server.py           # Main backend entrypoint
+│   ├── requirements.txt
+│   ├── Dockerfile          # Container build instructions for GCP deployment (gitignored)
+│   └── .env                # API keys + system prompts (gitignored)
+│
+├── Testing/
+│   ├── Logic.py            # Early prototype logic
+│   ├── testclient.py       # (gitignored)
+│   └── .env                # API keys + system prompts (gitignored)
+│
+├── README.md               # Project overview, setup steps, architecture notes
+├── todo.md                 # Task tracking, feature ideas, roadmap notes
 └── .gitignore
 ```
 ## Skills Learned
@@ -53,6 +65,6 @@ yt-focus/
 - Support Extended to sites outside of youtube
 
 ## Development Info
-- Version: Beta 0.2 
+- Version: Beta 0.4
 - Current Development Stage: Prototype 
 - With Love, [@prshv1](https://linktr.ee/prshv1)
