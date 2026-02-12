@@ -177,15 +177,30 @@ function showBlockOverlay() {
       </div>
       <h1 class="antirot-title">Time is Valuable</h1>
       <p class="antirot-subtitle">Anti-Rot blocked this video because it doesn't align with your goals.</p>
-      <p class="antirot-cta">Close the tab. Go build something.</p>
+      <p class="antirot-quote" id="antirot-quote"></p>
       <div class="antirot-actions">
         <button id="antirot-goback" class="antirot-btn antirot-btn-primary">← Go Back</button>
-        <button id="antirot-override" class="antirot-btn antirot-btn-ghost">Watch Anyway</button>
       </div>
     </div>
   `;
 
   document.body.appendChild(overlayElement);
+
+  // Inject random motivational quote
+  const quotes = [
+    "The grind doesn't stop for a 10-minute distraction.",
+    "You're not bored. You're avoiding the work that matters.",
+    "Discipline is choosing between what you want now and what you want most.",
+    "Every minute here is a minute stolen from your future self.",
+    "Winners don't scroll. They build.",
+    "Your competition is working right now. Are you?",
+    "Comfort is the enemy of growth.",
+    "You didn't come this far to only come this far.",
+    "The algorithm feeds you what keeps you average.",
+    "Hard choices, easy life. Easy choices, hard life.",
+  ];
+  const quoteEl = document.getElementById('antirot-quote');
+  quoteEl.textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
 
   // Pause the video
   const video = document.querySelector('video');
@@ -194,12 +209,6 @@ function showBlockOverlay() {
   // Button listeners
   document.getElementById('antirot-goback').addEventListener('click', () => {
     window.history.back();
-  });
-
-  document.getElementById('antirot-override').addEventListener('click', () => {
-    cleanup();
-    // Don't reprocess this video
-    currentVideoId = getCurrentVideoId();
   });
 
   // Animate in
