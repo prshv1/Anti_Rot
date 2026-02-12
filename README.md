@@ -28,9 +28,9 @@ yt-focus/
 │   ├── content.js
 │   └── background.js
 ├── server/                # Deployed on Google Cloud
-│   ├── main.py            # Main Logic
 |   ├── Server.py          # Logic Optimized for Docker & GCP
 │   ├── requirements.txt   # Python deps
+│   ├── Dockerfile         # To contain the server and push to GCP (gitignored)
 │   └── .env               # API key & System Prompt (gitignored)
 ├── Testing
 │   ├── Logic.py           # basic logic i wrote while protyping
