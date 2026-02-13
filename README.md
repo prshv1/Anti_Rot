@@ -6,7 +6,7 @@ Chrome extension + Python backend that automatically blocks non valuable YouTube
 
 - You browse YouTube normally
 - Extension detects when you open a video, extracts the URL
-- Backend extracts the transcript via `yt-dlp`
+- Backend extracts the transcript using supadata
 - LLM classifies: educational or distraction
 - non valuable? Page gets replaced with a "Time is valuable" screen
 - Valuable? Nothing happens, keep watching
@@ -15,9 +15,16 @@ Chrome extension + Python backend that automatically blocks non valuable YouTube
 
 ## How to install
 
-1. Go to, "Chrome Webstore Link"
-2. Install The extension
-3. Sign-Up or Log-IN
+1. Clone the github repo ```git clone https://github.com/prshv1/Anti_Rot```
+2. Open Google Chrome and go to:  ```chrome://extensions```
+3. Enable Developer Mode (top-right toggle)
+4. Drag and drop the folder named "Client Side" from the repo
+
+## Version log
+v0.1: prototype stage
+v0.2: Deployed the backend on Cloud servers
+v0.3: Switched from YT-DLP to supadata for transcripts in backend
+v0.4: Completed the client side software, and ready for beta shipping.
 
 ## Project Structure
 
@@ -31,6 +38,11 @@ flowchart TD
     F -->|1 - Valuable| G[✅ Allow video]
     F -->|0 - Time Waste| H[🚫 Block video]
 ```
+## Upcoming Features
+- Custom Preferances to decide Valuable/non valuable videos
+- Support for videos which aren't in english
+- Hide Distracting UI elements, Like Unhook
+- Support Extended to sites outside of youtube
 
 ## Skills Learned
 - Creating APIs
@@ -38,12 +50,6 @@ flowchart TD
 - Managing User Acounts
 - Working With LLMs
 - creating Simple and Usefull software
-
-## Upcoming Features
-- Custom Preferances to decide Valuable/non valuable videos
-- Support for videos which aren't in english
-- Hide Distracting UI elements, Like Unhook
-- Support Extended to sites outside of youtube
 
 ## Development Info
 - Version: Beta 0.4
