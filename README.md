@@ -23,10 +23,10 @@ Chrome extension + Python backend that automatically blocks non valuable YouTube
 
 ```mermaid
 flowchart TD
-    A[🌐 User opens YouTube video] --> B[🧩 Chrome Extension extracts URL]
-    B --> C[📡 Sends URL to GCP Server]
-    C --> D[📝 Supadata API fetches transcript]
-    D --> E[🤖 Transcript sent to LLM via OpenRouter]
+    A[User opens YouTube video] --> B[Chrome Extension extracts URL]
+    B --> C[Sends URL to Backend Server]
+    C --> D[Supadata API fetches transcript]
+    D --> E[Transcript sent to LLM via OpenRouter]
     E --> F{LLM Output}
     F -->|1 - Valuable| G[✅ Allow video]
     F -->|0 - Time Waste| H[🚫 Block video]
