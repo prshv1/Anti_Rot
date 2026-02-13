@@ -23,7 +23,7 @@ def Vid_Cat(Vid_Transcript):
     }
 
     data = {
-        "model": "openrouter/aurora-alpha",   # change to any model you want
+        "model": "openai/gpt-oss-120b:free",   # change to any model you want
         "messages": [
         {"role": "system", "content": System_Prompt},
         {"role": "user", "content": Vid_Transcript}
