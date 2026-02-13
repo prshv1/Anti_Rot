@@ -21,36 +21,17 @@ Chrome extension + Python backend that automatically blocks non valuable YouTube
 
 ## Project Structure
 
+```mermaid
+flowchart TD
+    A[🌐 User opens YouTube video] --> B[🧩 Chrome Extension extracts URL]
+    B --> C[📡 Sends URL to GCP Server]
+    C --> D[📝 Supadata API fetches transcript]
+    D --> E[🤖 Transcript sent to LLM via OpenRouter]
+    E --> F{LLM Output}
+    F -->|1 - Valuable| G[✅ Allow video]
+    F -->|0 - Time Waste| H[🚫 Block video]
 ```
-Anti_Rot/
-├── Client Side/            # Chrome Extension (runs on user’s browser)
-│   ├── icons/              # Extension icons used by Chrome UI
-│   │   ├── icon16.png
-│   │   ├── icon48.png
-│   │   └── icon128.png
-│   ├── manifest.json       # Core config file that defines permissions, scripts, and extension metadata
-│   ├── background.js       # Background service worker; handles events, messaging, and persistent logic
-│   ├── content.js          # Injected into YouTube pages; extracts URL/transcript + manipulates DOM
-│   ├── content.css         # Styles applied directly to the YouTube page by content.js
-│   ├── popup.html          # UI layout for extension popup
-│   ├── popup.css           # Styling for popup interface
-│   └── popup.js            # Logic for popup interactions and user actions
-│
-├── Server/                 # Backend API (Dockerized for cloud deployment)
-│   ├── server.py           # Main backend entrypoint
-│   ├── requirements.txt
-│   ├── Dockerfile          # Container build instructions for GCP deployment (gitignored)
-│   └── .env                # API keys + system prompts (gitignored)
-│
-├── Testing/
-│   ├── Logic.py            # Early prototype logic
-│   ├── testclient.py       # (gitignored)
-│   └── .env                # API keys + system prompts (gitignored)
-│
-├── README.md               # Project overview, setup steps, architecture notes
-├── todo.md                 # Task tracking, feature ideas, roadmap notes
-└── .gitignore
-```
+
 ## Skills Learned
 - Creating APIs
 - Deploying Docker on GCP
